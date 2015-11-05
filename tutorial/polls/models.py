@@ -5,6 +5,7 @@ class Question(models.Model):
     class Meta:
         verbose_name = '質問'
         verbose_name_plural = '質問の複数形'
+        ordering = ['-pub_date']
 
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
