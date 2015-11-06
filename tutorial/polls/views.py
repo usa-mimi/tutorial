@@ -31,7 +31,7 @@ def vote(request, pk):
     else:
         selected_choice.votes += 1
         selected_choice.save()
-        return redirect('index')
+        return redirect('poll_results', pk)
 
 
 def results(request, pk):
