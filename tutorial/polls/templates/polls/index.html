@@ -1,5 +1,16 @@
 <html>
 <body>
-  {{ questions }}
+  <table border="1">
+    <tr>
+      <th>質問内容</th>
+      <th>公開日</th>
+    </tr>
+    {% for question in questions %}
+    <tr>
+      <td>{{ question.question_text }}</td>
+      <td>{{ question.pub_date }}</td>
+    </tr>
+    {% endfor %}
+  </table>
 </body>
 </html>
