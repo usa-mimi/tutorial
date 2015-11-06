@@ -32,3 +32,10 @@ def vote(request, pk):
         selected_choice.votes += 1
         selected_choice.save()
         return redirect('index')
+
+
+def results(request, pk):
+    obj = get_object_or_404(Question, pk=pk)
+    return render(request, 'polls/results.html', {
+        'question': obj,
+    })
