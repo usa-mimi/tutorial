@@ -58,3 +58,6 @@ target/
 
 # other
 *.sqlite3
+
+# vim
+*.swp
