@@ -5,7 +5,6 @@ from django.shortcuts import redirect
 from .forms import MyForm
 from .forms import VoteForm
 from .models import Question
-from .models import Choice
 
 
 def index(request):
@@ -31,7 +30,7 @@ def detail(request, pk):
     if request.method == "POST":
         form = VoteForm(question=obj, data=request.POST)
         if form.is_valid():
-            # TODO: 投票処理
+            form.vote()
             return redirect('polls:results', pk)
     else:
         form = VoteForm(question=obj)
@@ -39,21 +38,6 @@ def detail(request, pk):
         'form': form,
         'question': obj,
     })
-
-
-def vote(request, pk):
-    question = get_object_or_404(Question, pk=pk)
-    try:
-        selected_choice = question.choice_set.get(pk=request.POST['choice'])
-    except (KeyError, Choice.DoesNotExist):
-        return render(request, 'polls/detail.html', {
-            'question': question,
-            'error_message': "You didn't select a choice.",
-        })
-    else:
-        selected_choice.votes += 1
-        selected_choice.save()
-        return redirect('polls:results', pk)
 
 
 def results(request, pk):
