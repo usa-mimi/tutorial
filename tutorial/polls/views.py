@@ -28,7 +28,13 @@ def form_test(request):
 
 def detail(request, pk):
     obj = get_object_or_404(Question, pk=pk)
-    form = VoteForm(question=obj)
+    if request.method == "POST":
+        form = VoteForm(question=obj, data=request.POST)
+        if form.is_valid():
+            # TODO: 投票処理
+            return redirect('polls:results', pk)
+    else:
+        form = VoteForm(question=obj)
     return render(request, 'polls/detail.html', {
         'form': form,
         'question': obj,
