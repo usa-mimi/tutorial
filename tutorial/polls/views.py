@@ -14,7 +14,12 @@ def index(request):
 
 
 def form_test(request):
-    form = MyForm()
+    if request.method == "POST":
+        form = MyForm(data=request.POST)
+        if form.is_valid():
+            pass
+    else:
+        form = MyForm()
     return render(request, 'polls/form.html', {
         'form': form,
     })
