@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 
 from .forms import MyForm
+from .forms import VoteForm
 from .models import Question
 from .models import Choice
 
@@ -27,7 +28,9 @@ def form_test(request):
 
 def detail(request, pk):
     obj = get_object_or_404(Question, pk=pk)
+    form = VoteForm(question=obj)
     return render(request, 'polls/detail.html', {
+        'form': form,
         'question': obj,
     })
 
