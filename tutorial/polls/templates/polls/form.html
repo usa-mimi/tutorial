@@ -1,0 +1,9 @@
+<html>
+  <body>
+    <form method="POST">
+      {% csrf_token %}
+      {{ form }}
+      <input type="submit" value="送信"/>
+    </form>
+  </body>
+</html>
