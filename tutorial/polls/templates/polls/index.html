@@ -1,6 +1,7 @@
-<html>
-<body>
-  <table border="1">
+{% extends "polls/base.html" %}
+
+{% block contents %}
+  <table border="1" class="table table-striped">
     <tr>
       <th>質問内容</th>
       <th>公開日</th>
@@ -14,5 +15,4 @@
     </tr>
     {% endfor %}
   </table>
-</body>
-</html>
+{% endblock contents %}
