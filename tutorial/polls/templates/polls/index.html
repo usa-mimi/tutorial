@@ -1,10 +1,6 @@
 {% extends "base.html" %}
-{% load staticfiles %}
-<html>
-  <head>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
-  </head>
-<body>
+
+{% block contents %}
   <table border="1" class="table table-striped">
     <tr>
       <th>質問内容</th>
@@ -19,5 +15,4 @@
     </tr>
     {% endfor %}
   </table>
-</body>
-</html>
+{% endblock contents %}
