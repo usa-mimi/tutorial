@@ -1,10 +1,10 @@
 from django.test import TestCase
+from django.utils import timezone
+
+from .models import Question
 
 
 class PollsTest(TestCase):
-    def test_success(self):
-        self.assertEqual(1, 1)
-        self.assertEqual(1, True)
-
-    def test_failed(self):
-        self.assertNotEqual(0, False)
+    def test_was_published_recently(self):
+        obj = Question(pub_date=timezone.now())
+        self.assertTrue(obj.was_published_recently())
