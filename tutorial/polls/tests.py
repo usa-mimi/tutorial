@@ -30,3 +30,13 @@ class ViewTest(TestCase):
     def test_index(self):
         response = self.client.get(resolve_url('polls:index'))
         self.assertEqual(200, response.status_code)
+        self.assertEqual(0, response.context['questions'].count())
+
+        Question.objects.create(
+            question_text='aaa',
+            pub_date=timezone.now(),
+        )
+        response = self.client.get(resolve_url('polls:index'))
+        self.assertEqual(1, response.context['questions'].count())
+
+        self.assertEqual('aaa', response.context['questions'].first().question_text)
