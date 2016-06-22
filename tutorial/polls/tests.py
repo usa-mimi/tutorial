@@ -1,5 +1,6 @@
 from datetime import timedelta
 
+from django.shortcuts import resolve_url
 from django.test import TestCase
 from django.utils import timezone
 
@@ -23,3 +24,9 @@ class PollsTest(TestCase):
         # もうちょっとしたら公開
         obj = Question(pub_date=timezone.now() + timedelta(minutes=1))
         self.assertFalse(obj.was_published_recently(), '1分後公開')
+
+
+class ViewTest(TestCase):
+    def test_index(self):
+        response = self.client.get(resolve_url('polls:index'))
+        self.assertEqual(200, response.status_code)
