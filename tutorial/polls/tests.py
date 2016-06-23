@@ -1,10 +1,19 @@
 from datetime import timedelta
+from unittest import mock
 
 from django.shortcuts import resolve_url
 from django.test import TestCase
 from django.utils import timezone
 
 from .models import Question
+
+
+def dummy_api_func():
+    return 'dummy api response'
+
+
+def api_func():
+    return 'api response'
 
 
 class PollsTest(TestCase):
@@ -24,6 +33,18 @@ class PollsTest(TestCase):
         # もうちょっとしたら公開
         obj = Question(pub_date=timezone.now() + timedelta(minutes=1))
         self.assertFalse(obj.was_published_recently(), '1分後公開')
+
+    def test_api(self):
+        ret = api_func()
+        print('ret:', ret)
+        with mock.patch('polls.tests.api_func', dummy_api_func):
+            ret = api_func()
+            print('mocked_ret:', ret)
+
+    @mock.patch('polls.tests.api_func', dummy_api_func)
+    def test_mocked(self):
+        ret = api_func()
+        print('decorator:', ret)
 
 
 class ViewTest(TestCase):
